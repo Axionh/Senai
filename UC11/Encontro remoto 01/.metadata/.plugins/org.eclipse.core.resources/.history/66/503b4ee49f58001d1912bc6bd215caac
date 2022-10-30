@@ -1,0 +1,32 @@
+package teste.senai;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TesteNavegabiliade {
+
+ChromeDriver driver; //driver do google chrome 
+	
+	// pré-teste
+	@Before
+	public void PreTeste() {
+		System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\chromedriver\\chromedriver.exe");
+		this.driver = new ChromeDriver ();
+		
+	}
+ 
+	// teste  crtl space para puzar o import junit
+	@Test
+	public void Teste() {
+
+	}
+
+	// pós-teste
+	@After
+	public void PosTeste() {
+
+	}
+
+}

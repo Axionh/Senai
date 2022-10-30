@@ -1,0 +1,20 @@
+package teste.senai;
+
+public class TesteNavegabiliade {
+
+	// pré-teste
+	public void PreTeste() {
+		System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\chromedriver\\chromedriver.exe");
+	}
+
+	// teste
+	public void Teste() {
+
+	}
+
+	// pós-teste
+	public void PosTeste() {
+
+	}
+
+}

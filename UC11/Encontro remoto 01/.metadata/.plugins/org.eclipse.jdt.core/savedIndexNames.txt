@@ -1,0 +1,2 @@
+INDEX VERSION 1.131+C:\Users\Spark\Documents\Alexandre\Estudos\alura\senai\Senai\UC11\Encontro remoto 01\.metadata\.plugins\org.eclipse.jdt.core
+2261164231.index
