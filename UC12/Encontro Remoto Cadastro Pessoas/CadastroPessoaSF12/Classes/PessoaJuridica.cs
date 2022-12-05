@@ -8,9 +8,9 @@ namespace CadastroPessoaSF12.Classes
 {
     public class PessoaJuridica : Pessoa, IPessoaJuridica
     {//atributos
-        public string ?cnpj {get;set;}
+        public string ? Cnpj {get;set;}
 
-        public string ?razaosocial {get;set;}
+        public string ? Razaosocial {get;set;}
 
 
         public override float PagarImposto(float rendimento)
