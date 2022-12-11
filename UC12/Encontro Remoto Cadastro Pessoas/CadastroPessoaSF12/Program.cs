@@ -1,23 +1,12 @@
 ﻿using CadastroPessoaSF12.Classes;
 using System.Text.RegularExpressions; //importação RegEx
 
-
-
-// //************cadastro da pessoa juridica************
+// //************Cadastro da pessoa juridica************
 Endereco endPj = new Endereco();
 endPj.Logradouro = "Rua Niteroi";
 endPj.Numero = 180;
 endPj.Comercial = true;
-
 PessoaJuridica novaPj = new PessoaJuridica();
-
-// //****************Para fazer que o console pergunte valores e imprima os mesmos depois****************
-// // Console.WriteLine($"Digite o nome fantasia:");
-// // novaPj.Fantasia = Console.ReadLine(); //serve para poder escrever o nome dentro do console e guardar na variável
-// // Console.WriteLine($"Qual é o rendimento?");
-// // novaPj.Rendimento = float.Parse(Console.ReadLine ());//aqui é para pedir qual o rendimento e passar de string para float
-
-
 //****************Dados pessoa juridica*****************
 novaPj.Nome = "Paulo";
 novaPj.Endereco = endPj;
@@ -27,6 +16,7 @@ novaPj.Cnpj = "62.236.353/0001-42";//com mascara
 novaPj.Fantasia = "SENAI";
 novaPj.Razaosocial = "Serviço Nacional de Aprendizagem Industrial";
 
+PessoaJuridica metodosPj = new PessoaJuridica ();
 //Exibição dos dados
 Console.WriteLine($"Pessoa Jurídica 01");
 //adicionar o @ pode fazer varias linhas dentrode um CWL apenas  
@@ -35,50 +25,18 @@ Razão Social: {novaPj.Razaosocial}
 Nome Fantasia: {novaPj.Fantasia}
 Representante: {novaPj.Nome}
 CNPJ: {novaPj.Cnpj}
-CNPJ Válido: {novaPj.ValidarCnpj(novaPj.Cnpj)}
+CNPJ Válido: {metodosPj.ValidarCnpj(novaPj.Cnpj)}
 Rendimento atual: {novaPj.Rendimento}
 Endereço copleto: {novaPj.Endereco.Logradouro}, {novaPj.Endereco.Numero}, {novaPj.Endereco.Comercial}
 ");  
 
 
 
-
-
-
-
-
-
-
-
-
 //***************************ESTUDOS DE CASO****************************
-// string data = "40/12/2022";
 
-// bool dataValida = Regex.IsMatch(data, @"^\d{2}/\d{2}/\d{4}$" ); //(data, "") o data é a variavel e dentro do "" está o padrão de como é para ser. O @ é usado para poder usar coaracteres especiais. d{2} significa que é digito com 2 itens e assim por diante. RegEx serve para verificar uma expressão regular. ^é o inicio e $ é o final
+//************************Cadastro da pessoa fisica*****************************
 
-// Console.WriteLine (data);
-// Console.WriteLine(dataValida);
-//teste para validar dia e mes com if
-// if (dataValida)
-// {
-//     String [] partes =data.Split("/");
-//     if (int.Parse(partes[0])>=1 && int.Parse(partes[0])<=31)
-//     {
-             
-//     }
-//     else{
-//         Console.WriteLine("Dia Inválido");
-//     }
-//     if (int.Parse(partes[1])>=1 && int.Parse(partes[1])<=12)
-//     {
-             
-//     }
-//     else{
-//         Console.WriteLine("Mês Inválido");
-//     }
-    
-// }
-//************************cadastro da pessoa fisica*****************************
+//PessoaFisica metodosPf = new PessoaFisica ();
 //endereco da pessoa fisica 1
 // Endereco endPf1 = new Endereco();
 // endPf1.Logradouro = "Rua de casa";
@@ -110,7 +68,7 @@ Endereço copleto: {novaPj.Endereco.Logradouro}, {novaPj.Endereco.Numero}, {nova
 // Console.WriteLine( $"CPF: {Pf1.Cpf}");
 // Console.WriteLine( $"Rendimento: {Pf1.Rendimento}");
 // Console.WriteLine( $"Data de Nascimento: {Pf1.DataNascimento}");
-// Console.WriteLine( $"Maior de idade? {Pf1.ValidarDataNascimento( Pf1.DataNascimento)}");
+// Console.WriteLine( $"Maior de idade? {metodosPf.ValidarDataNascimento( Pf1.DataNascimento)}");
 // Console.WriteLine( $"Rua: {Pf1.Endereco.Logradouro}");
 // Console.WriteLine( $"Numero: {Pf1.Endereco.Numero}");
 // Console.WriteLine( $"Endereco comercial? {Pf1.Endereco.Comercial}");
@@ -128,6 +86,40 @@ Endereço copleto: {novaPj.Endereco.Logradouro}, {novaPj.Endereco.Numero}, {nova
 // Console.WriteLine( $"Endereco comercial? {ThePeople.Endereco.Comercial}");
 
 // DateTime data = new DateTime(1982,07,20);
+
+
+// CNPJ Válido: {novaPj.ValidarCnpj(novaPj.Cnpj)}
+// //****************Para fazer que o console pergunte valores e imprima os mesmos depois****************
+// // Console.WriteLine($"Digite o nome fantasia:");
+// // novaPj.Fantasia = Console.ReadLine(); //serve para poder escrever o nome dentro do console e guardar na variável
+// // Console.WriteLine($"Qual é o rendimento?");
+// // novaPj.Rendimento = float.Parse(Console.ReadLine ());//aqui é para pedir qual o rendimento e passar de string para float
+// string data = "40/12/2022";
+
+// bool dataValida = Regex.IsMatch(data, @"^\d{2}/\d{2}/\d{4}$" ); //(data, "") o data é a variavel e dentro do "" está o padrão de como é para ser. O @ é usado para poder usar coaracteres especiais. d{2} significa que é digito com 2 itens e assim por diante. RegEx serve para verificar uma expressão regular. ^é o inicio e $ é o final
+
+// Console.WriteLine (data);
+// Console.WriteLine(dataValida);
+//teste para validar dia e mes com if
+// if (dataValida)
+// {
+//     String [] partes =data.Split("/");
+//     if (int.Parse(partes[0])>=1 && int.Parse(partes[0])<=31)
+//     {
+             
+//     }
+//     else{
+//         Console.WriteLine("Dia Inválido");
+//     }
+//     if (int.Parse(partes[1])>=1 && int.Parse(partes[1])<=12)
+//     {
+             
+//     }
+//     else{
+//         Console.WriteLine("Mês Inválido");
+//     }
+    
+// }
 
 //Substring - cada caractere tem um numero partindo do 0 e seguindo
 
