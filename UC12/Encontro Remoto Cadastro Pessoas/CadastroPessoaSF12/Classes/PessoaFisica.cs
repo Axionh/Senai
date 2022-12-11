@@ -37,7 +37,7 @@ namespace CadastroPessoaSF12.Classes
 
         public bool ValidarDataNascimento(DateTime dataNasc)
         {
-            Console.WriteLine($"USANDO O DATETIME: {dataNasc}");
+            // Console.WriteLine($"USANDO O DATETIME: {dataNasc}");
             {
 
                 DateTime dataAtual = DateTime.Today;//pega a data de hoje
