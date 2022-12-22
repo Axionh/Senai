@@ -15,9 +15,25 @@ namespace CadastroPessoaSF12.Classes
         public string? Fantasia { get; set; }
 
 
+
+        //PESSOA FÍSICA regra de descontos
+        //Para rendimentos até R$ 5.000,00 - desconto de 6%
+        //Para rendimentos entre R$ 5.000,01 e R$ 10.000,00 - desconto de 8%
+        //Para rendimentos acima R$ 10.00,01 - desconto de 10%
         public override float PagarImposto(float rendimento)
         {
-            throw new NotImplementedException();
+            if (rendimento <= 5000)
+            {
+                return rendimento - (rendimento / 100 * 6);
+            }
+            else if (rendimento <= 10000)
+            {//desconto de 8% acima de 5000 e ate 10000
+                return rendimento - (rendimento / 100 * 8);
+            }
+            else
+            {//desconto de 10% acima de 10000
+                return rendimento - (rendimento / 100 * 10);
+            }
         }
 
         public bool ValidarCnpj(string cnpj)
@@ -31,21 +47,20 @@ namespace CadastroPessoaSF12.Classes
             {
                 if (cnpj.Length == 18)
                 {//18 digitos
-                    if (cnpj.Substring(11, 4) =="0001")
+                    if (cnpj.Substring(11, 4) == "0001")
                     {//0001
                         return true;
                     }
                 }
                 else if (cnpj.Length == 14)
                 {//14 digitos
-                    if (cnpj.Substring(8, 4) =="0001")
+                    if (cnpj.Substring(8, 4) == "0001")
                     {//0001
                         return true;
                     }
                 }
             }
-                return false;
+            return false;
         }
     }
 }
-    

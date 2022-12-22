@@ -1,23 +1,59 @@
 ﻿using CadastroPessoaSF12.Classes;
 using System.Text.RegularExpressions; //importação RegEx
 
-// //************Cadastro da pessoa juridica************
+//************************Pessoa Fisica*****************************
+PessoaFisica metodosPf = new PessoaFisica ();
+//Endereco da pessoa fisica 1
+Endereco endPf1 = new Endereco();
+endPf1.Logradouro = "Rua de casa";
+endPf1.Numero = 123;
+endPf1.Comercial = false;
+
+//Pessoa fisica 1 CADASTRO
+PessoaFisica Pf1 = new PessoaFisica();
+Pf1.Nome = "Alexandre Hoss";
+Pf1.DataNascimento = new DateTime(2010,07,20);
+Pf1.Cpf = "12345678910";
+Pf1.Rendimento = 1500.00f;//colocar o f depois do numeror para aceitar as casa decimais quando for float. Assim diferencia do double
+Pf1.Endereco = endPf1;
+
+//EXIBIÇÃO PESSOA FISICA
+Console.WriteLine($"PESSOA FISICA 1");
+Console.WriteLine( $"NOME: {Pf1.Nome}");
+Console.WriteLine( $"CPF: {Pf1.Cpf}");
+Console.WriteLine( $"Rendimento: {Pf1.Rendimento}");
+// Console.WriteLine( $"Rendimento DESCONTO: R$ {Pf1.Rendimento - metodosPf.PagarImposto(Pf1.Rendimento)}");
+Console.WriteLine( $"Rendimento LIQUIDO: R$ {metodosPf.PagarImposto(Pf1.Rendimento)}");
+Console.WriteLine( $"Data de Nascimento: {Pf1.DataNascimento}");
+Console.WriteLine( $"Maior de idade? {metodosPf.ValidarDataNascimento( Pf1.DataNascimento)}");
+Console.WriteLine( $"Rua: {Pf1.Endereco.Logradouro}");
+Console.WriteLine( $"Numero: {Pf1.Endereco.Numero}");
+Console.WriteLine( $"Endereco comercial? {Pf1.Endereco.Comercial}");
+
+Console.WriteLine();
+
+
+
+//************************Pessoa Juridica*****************************
+PessoaJuridica metodosPj = new PessoaJuridica ();
+//Endereco da pessoa juridica 1
 Endereco endPj = new Endereco();
 endPj.Logradouro = "Rua Niteroi";
 endPj.Numero = 180;
 endPj.Comercial = true;
 PessoaJuridica novaPj = new PessoaJuridica();
-//****************Dados pessoa juridica*****************
+
+//Pessoa juridica CADASTRO
 novaPj.Nome = "Paulo";
 novaPj.Endereco = endPj;
-novaPj.Rendimento = 100000;
+novaPj.Rendimento = 10000;
 novaPj.Cnpj = "62.236.353/0001-42";//com mascara
 // novaPj.Cnpj = "62236353000142";//sem mascara
 novaPj.Fantasia = "SENAI";
 novaPj.Razaosocial = "Serviço Nacional de Aprendizagem Industrial";
 
-PessoaJuridica metodosPj = new PessoaJuridica ();
-//Exibição dos dados
+
+//EXIBICAO PESSOA JURIDICA
 Console.WriteLine($"Pessoa Jurídica 01");
 //adicionar o @ pode fazer varias linhas dentrode um CWL apenas  
 Console.WriteLine(@$"
@@ -27,63 +63,21 @@ Representante: {novaPj.Nome}
 CNPJ: {novaPj.Cnpj}
 CNPJ Válido: {metodosPj.ValidarCnpj(novaPj.Cnpj)}
 Rendimento atual: {novaPj.Rendimento}
+Rendimento LIQUIDO: {metodosPj.PagarImposto(novaPj.Rendimento)}
 Endereço copleto: {novaPj.Endereco.Logradouro}, {novaPj.Endereco.Numero}, {novaPj.Endereco.Comercial}
 ");  
 
 
 
+
+
+
+
+
 //***************************ESTUDOS DE CASO****************************
 
-//************************Cadastro da pessoa fisica*****************************
 
-//PessoaFisica metodosPf = new PessoaFisica ();
-//endereco da pessoa fisica 1
-// Endereco endPf1 = new Endereco();
-// endPf1.Logradouro = "Rua de casa";
-// endPf1.Numero = 123;
-// endPf1.Comercial = false;
 
-// //Pessoa fisica 1
-// PessoaFisica Pf1 = new PessoaFisica();
-// Pf1.Nome = "Alexandre Hoss";
-// Pf1.DataNascimento = new DateTime(2010,07,20);
-// Pf1.Cpf = "12345678910";
-// Pf1.Rendimento = 1000;
-// Pf1.Endereco = endPf1;
-
-// //Pessoa Fisica 2
-// PessoaFisica ThePeople = new PessoaFisica("12345678910");
-// ThePeople.Nome = "Joao";
-// ThePeople.DataNascimento = new DateTime(2000,07,20);
-// ThePeople.Cpf = "12345678910";
-// ThePeople.Rendimento = 31000;
-// ThePeople.Endereco = endPf1;
-
-// Console.WriteLine( ThePeople.ValidarDataNascimento ("20/07/2010") );//retorn da funcao 
-
-// //Exibir os dados
-// Console.WriteLine($"PESSOA FISICA 1");
-
-// Console.WriteLine( $"NOME: {Pf1.Nome}");
-// Console.WriteLine( $"CPF: {Pf1.Cpf}");
-// Console.WriteLine( $"Rendimento: {Pf1.Rendimento}");
-// Console.WriteLine( $"Data de Nascimento: {Pf1.DataNascimento}");
-// Console.WriteLine( $"Maior de idade? {metodosPf.ValidarDataNascimento( Pf1.DataNascimento)}");
-// Console.WriteLine( $"Rua: {Pf1.Endereco.Logradouro}");
-// Console.WriteLine( $"Numero: {Pf1.Endereco.Numero}");
-// Console.WriteLine( $"Endereco comercial? {Pf1.Endereco.Comercial}");
-
-// Console.WriteLine();
-
-// Console.WriteLine($"PESSOA FISICA 2");
-// Console.WriteLine( $"NOME: {ThePeople.Nome}");
-// Console.WriteLine( $"CPF: {ThePeople.Cpf}");
-// Console.WriteLine( $"Rendimento: {ThePeople.Rendimento}");
-// Console.WriteLine( $"Data de Nascimento: {ThePeople.DataNascimento}");
-// Console.WriteLine( $"Maior de idade? {ThePeople.ValidarDataNascimento(ThePeople.DataNascimento)}");
-// Console.WriteLine( $"Rua: {ThePeople.Endereco.Logradouro}");
-// Console.WriteLine( $"Numero: {ThePeople.Endereco.Numero}");
-// Console.WriteLine( $"Endereco comercial? {ThePeople.Endereco.Comercial}");
 
 // DateTime data = new DateTime(1982,07,20);
 
