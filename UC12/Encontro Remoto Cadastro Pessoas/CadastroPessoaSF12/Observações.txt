@@ -8,3 +8,5 @@ ER 04
 Regex e abstract class
 ER 05
 Realizar Métodos Calcular Imposto
+ER 06
+Menu, loading e utils
