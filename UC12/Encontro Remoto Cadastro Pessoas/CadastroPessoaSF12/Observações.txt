@@ -10,3 +10,5 @@ ER 05
 Realizar Métodos Calcular Imposto
 ER 06
 Menu, loading e utils
+ER 07
+Sub-menu e Cadastro em memória

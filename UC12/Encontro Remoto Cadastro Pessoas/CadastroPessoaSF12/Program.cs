@@ -1,9 +1,11 @@
 ﻿using CadastroPessoaSF12.Classes;
 using System.Text.RegularExpressions; //importação RegEx
 
-//************************Metodos*****************************
+//************************Metodos GLOBAIS*****************************
 PessoaFisica metodosPf = new PessoaFisica();
 PessoaJuridica metodosPj = new PessoaJuridica();
+List<PessoaFisica> ListaPf = new List<PessoaFisica>();//inicializa uma lista vazia
+List<PessoaJuridica> ListaPj = new List<PessoaJuridica>();//inicializa uma lista vazia
 
 //************************Cabeçalho do sistema*****************************
 Console.WriteLine(@$"
@@ -37,73 +39,166 @@ do
 
     switch (opcao)
     {
-        case "1":
-            Console.Clear();
-            //Endereco da pessoa FISICA 1
-            Endereco endPf1 = new Endereco();
-            endPf1.Logradouro = "Rua de casa";
-            endPf1.Numero = 123;
-            endPf1.Comercial = false;
+        case "1"://----------Pessoa fisica------------//
 
-            //Pessoa fisica 1 CADASTRO
-            PessoaFisica Pf1 = new PessoaFisica();
-            Console.WriteLine($"********** PESSOA FISICA **********");
-            Console.WriteLine();
-            Pf1.Nome = "Alexandre Hoss";
-            Pf1.DataNascimento = new DateTime(2010, 07, 20);
-            Pf1.Cpf = "12345678910";
-            Pf1.Rendimento = 1500.00f;//colocar o f depois do numeror para aceitar as casa decimais quando for float. Assim diferencia do double
-            Pf1.Endereco = endPf1;
 
-            //EXIBIÇÃO PESSOA FISICA
-            Console.WriteLine($"NOME: {Pf1.Nome}");
-            Console.WriteLine($"CPF: {Pf1.Cpf}");
-            Console.WriteLine($"Rendimento: {Pf1.Rendimento}");
-            // Console.WriteLine( $"Rendimento DESCONTO: R$ {Pf1.Rendimento - metodosPf.PagarImposto(Pf1.Rendimento)}");
-            Console.WriteLine($"Rendimento LIQUIDO: R$ {metodosPf.PagarImposto(Pf1.Rendimento)}");
-            Console.WriteLine($"Data de Nascimento: {Pf1.DataNascimento}");
-            Console.WriteLine($"Maior de idade? {metodosPf.ValidarDataNascimento(Pf1.DataNascimento)}");
-            Console.WriteLine($"Rua: {Pf1.Endereco.Logradouro}");
-            Console.WriteLine($"Numero: {Pf1.Endereco.Numero}");
-            Console.WriteLine($"Endereco comercial? {Pf1.Endereco.Comercial}");
-            Utils.ParadaNoConsole("Pessoa Fisica Cadastrada com sucesso!");
+            string opcaoPf;
+            do
+            {//submenu layout
+                Console.WriteLine(@$"
+=============================================
+|      Escolha uma das opções abaixo        |
+|-------------------------------------------|
+|           1 - Cadastrar Pessoa Fisica     |
+|           2 - Listar Pessoa Fisica        |
+|                                           |
+|           0 - Voltar                      |
+=============================================
+");
+                opcaoPf = Console.ReadLine();
+
+                switch (opcaoPf)
+                {
+                    case "1":
+                        Console.Clear();
+                        // Console.WriteLine($"********** PESSOA FISICA **********");
+                        Console.WriteLine();
+
+                        //Preenchimento dos dados 
+                        //Endereco da pessoa FISICA 1
+                        Endereco enderecoPf = new Endereco();
+                        Console.WriteLine($"Digite o endereço: ");
+                        enderecoPf.Logradouro = Console.ReadLine();
+                        Console.WriteLine($"Digite o número: ");
+                        enderecoPf.Numero = int.Parse(Console.ReadLine());//converte o texto do writeline e transforma para  numero
+                        Console.WriteLine($"Endereço comercial? s/n");
+                        if (Console.ReadLine() == "s")
+                        {
+                            enderecoPf.Comercial = true;
+                        }
+                        else
+                        {
+                            enderecoPf.Comercial = false;
+                        }
+                        //Pessoa fisica 1 CADASTRO
+                        PessoaFisica NovaPf = new PessoaFisica();
+                        Console.WriteLine($"Digite o nome: ");
+                        NovaPf.Nome = Console.ReadLine();
+                        NovaPf.DataNascimento = new DateTime(2010, 07, 20);
+                        Console.WriteLine($"Digite o CPF: ");
+                        NovaPf.Cpf = Console.ReadLine();
+                        Console.WriteLine($"Qual o seu rendimento bruto?");
+                        NovaPf.Rendimento = float.Parse(Console.ReadLine());//transformar a string em float
+                        NovaPf.Endereco = enderecoPf;
+
+                        //guardar o nome na lista
+                        ListaPf.Add(NovaPf); //guarda uma pessoa fisica na lista
+
+                        Utils.ParadaNoConsole("Pessoa Fisica Cadastrada com sucesso!");
+
+                        break;
+
+                    case "2":
+                        //EXIBIÇÃO PESSOA FISICA
+                        Console.Clear();
+                        Console.WriteLine($"------Listagem de Pessoas Fisicas-----");
+
+                        foreach (var pessoa in ListaPf)
+                        {//roda para cada pessoa da classe 
+                            Console.WriteLine();
+                            Console.WriteLine($"NOME: {pessoa.Nome}");
+                            Console.WriteLine($"CPF: {pessoa.Cpf}");
+                            Console.WriteLine($"Rendimento: {pessoa.Rendimento}");
+                            // Console.WriteLine( $"Rendimento DESCONTO: R$ {pessoa.Rendimento - metodosPf.PagarImposto(pessoa.Rendimento)}");
+                            Console.WriteLine($"Rendimento LIQUIDO: R$ {metodosPf.PagarImposto(pessoa.Rendimento)}");
+                            Console.WriteLine($"Data de Nascimento: {pessoa.DataNascimento}");
+                            //Console.WriteLine($"Maior de idade? {metodosPf.ValidarDataNascimento(pessoa.DataNascimento)}");
+                            Console.WriteLine(metodosPf.ValidarDataNascimento(pessoa.DataNascimento)?"Maiorde idade: Sim":"Maior de idade? Não");
+                            Console.WriteLine($"Rua: {pessoa.Endereco.Logradouro}");
+                            Console.WriteLine($"Numero: {pessoa.Endereco.Numero}");
+                            Console.WriteLine($"Endereco comercial? {pessoa.Endereco.Comercial}");
+                            // //maneira d realizar usando o operador ternário, metodo mais avançado e poderia tirar o IF
+                            //pleno
+                            // string endComercial = (pessoa.Endereco.Comercial==true)? "Endereço Comercial? Sim" : "Endereço Comercial? Não"; 
+                            //Console.WriteLine(endComercial);
+                            
+                            //senior
+                            //Console.Writeline (pessoa.Endereco.Comercial)? "Endereço Comercial? Sim" : "Endereço Comercial? Não"; 
+
+                            //maneira junior
+                            if (pessoa.Endereco.Comercial == true)
+                            {
+                                Console.WriteLine($"Endereço comercial? Sim");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Endereço comercial? Não");
+
+                            }
+                        }
+                        Utils.ParadaNoConsole("----------Fim da listagem----------");
+                        break;
+
+                    case "0":
+                        Console.Clear();
+                        Utils.ParadaNoConsole("Voltar ao menu anterior");
+                        break;
+
+                    default:
+                        Console.Clear();
+                        Utils.ParadaNoConsole("Opção invalida");
+                        break;
+                }
+
+
+            } while (opcaoPf != "0");
             break;
 
-        case "2":
-            Console.Clear();
-            //Endereco da pessoa juridica 1
-            Endereco endPj = new Endereco();
-            endPj.Logradouro = "Rua Niteroi";
-            endPj.Numero = 180;
-            endPj.Comercial = true;
-            PessoaJuridica novaPj = new PessoaJuridica();
-
-            //Pessoa juridica CADASTRO
-            Console.WriteLine($"********** PESSOA JURIDICA **********");
-            Console.WriteLine();
-            novaPj.Nome = "Paulo";
-            novaPj.Endereco = endPj;
-            novaPj.Rendimento = 10000;
-            novaPj.Cnpj = "62.236.353/0001-42";//com mascara
-            // novaPj.Cnpj = "62236353000142";//sem mascara
-            novaPj.Fantasia = "SENAI";
-            novaPj.Razaosocial = "Serviço Nacional de Aprendizagem Industrial";
+        case "2": //---------Pessoa Juridica---------//
 
 
-            //EXIBICAO PESSOA JURIDICA
-            Console.WriteLine($"Pessoa Jurídica 01");
-            //adicionar o @ pode fazer varias linhas dentrode um CWL apenas  
-            Console.WriteLine(@$"
-Razão Social: {novaPj.Razaosocial}
-Nome Fantasia: {novaPj.Fantasia}
-Representante: {novaPj.Nome}
-CNPJ: {novaPj.Cnpj}
-CNPJ Válido: {metodosPj.ValidarCnpj(novaPj.Cnpj)}
-Rendimento atual: {novaPj.Rendimento}
-Rendimento LIQUIDO: {metodosPj.PagarImposto(novaPj.Rendimento)}
-Endereço copleto: {novaPj.Endereco.Logradouro}, {novaPj.Endereco.Numero}, {novaPj.Endereco.Comercial}
-");
-            Utils.ParadaNoConsole("Pessoa Juridica Cadastrada com sucesso!");
+
+
+
+
+
+
+
+            //             Console.Clear();
+            //             Console.WriteLine($"********** PESSOA JURIDICA **********");
+            //             Console.WriteLine();
+
+            //             //Endereco da pessoa juridica 1
+            //             Endereco endPj = new Endereco();
+            //             endPj.Logradouro = "Rua Niteroi";
+            //             endPj.Numero = 180;
+            //             endPj.Comercial = true;
+            //             PessoaJuridica novaPj = new PessoaJuridica();
+
+            //             //Pessoa juridica CADASTRO
+            //             novaPj.Nome = "Paulo";
+            //             novaPj.Endereco = endPj;
+            //             novaPj.Rendimento = 10000;
+            //             novaPj.Cnpj = "62.236.353/0001-42";//com mascara
+            //             // novaPj.Cnpj = "62236353000142";//sem mascara
+            //             novaPj.Fantasia = "SENAI";
+            //             novaPj.Razaosocial = "Serviço Nacional de Aprendizagem Industrial";
+
+
+            //             //EXIBICAO PESSOA JURIDICA
+            //             Console.WriteLine($"Pessoa Jurídica 01");
+            //             //adicionar o @ pode fazer varias linhas dentrode um CWL apenas  
+            //             Console.WriteLine(@$"
+            // Razão Social: {novaPj.Razaosocial}
+            // Nome Fantasia: {novaPj.Fantasia}
+            // Representante: {novaPj.Nome}
+            // CNPJ: {novaPj.Cnpj}
+            // CNPJ Válido: {metodosPj.ValidarCnpj(novaPj.Cnpj)}
+            // Rendimento atual: {novaPj.Rendimento}
+            // Rendimento LIQUIDO: {metodosPj.PagarImposto(novaPj.Rendimento)}
+            // Endereço copleto: {novaPj.Endereco.Logradouro}, {novaPj.Endereco.Numero}, {novaPj.Endereco.Comercial}
+            // ");
+            //             Utils.ParadaNoConsole("Pessoa Juridica Cadastrada com sucesso!");
             break;
 
         case "0":
@@ -127,26 +222,6 @@ Endereço copleto: {novaPj.Endereco.Logradouro}, {novaPj.Endereco.Numero}, {nova
 //Loading de finalizar
 Utils.Loading("Finalizando", 3, 300);
 Console.WriteLine();
-
-
-
-
-// //************************Pessoa Fisica*****************************
-// //Endereco da pessoa fisica 1
-// Console.WriteLine($"********** PESSOA FISICA **********");
-// Console.WriteLine();
-
-
-// Console.WriteLine();
-
-
-
-// //************************Pessoa Juridica*****************************
-
-
-
-
-
 
 
 
