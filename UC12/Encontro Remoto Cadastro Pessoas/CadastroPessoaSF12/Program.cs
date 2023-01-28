@@ -113,7 +113,7 @@ do
                             Console.WriteLine($"Rendimento LIQUIDO: R$ {metodosPf.PagarImposto(pessoa.Rendimento)}");
                             Console.WriteLine($"Data de Nascimento: {pessoa.DataNascimento}");
                             //Console.WriteLine($"Maior de idade? {metodosPf.ValidarDataNascimento(pessoa.DataNascimento)}");
-                            Console.WriteLine(metodosPf.ValidarDataNascimento(pessoa.DataNascimento)?"Maiorde idade: Sim":"Maior de idade? Não");
+                            Console.WriteLine(metodosPf.ValidarDataNascimento(pessoa.DataNascimento) ? "Maiorde idade: Sim" : "Maior de idade? Não");
                             Console.WriteLine($"Rua: {pessoa.Endereco.Logradouro}");
                             Console.WriteLine($"Numero: {pessoa.Endereco.Numero}");
                             Console.WriteLine($"Endereco comercial? {pessoa.Endereco.Comercial}");
@@ -121,7 +121,7 @@ do
                             //pleno
                             // string endComercial = (pessoa.Endereco.Comercial==true)? "Endereço Comercial? Sim" : "Endereço Comercial? Não"; 
                             //Console.WriteLine(endComercial);
-                            
+
                             //senior
                             //Console.Writeline (pessoa.Endereco.Comercial)? "Endereço Comercial? Sim" : "Endereço Comercial? Não"; 
 
@@ -157,49 +157,132 @@ do
         case "2": //---------Pessoa Juridica---------//
 
 
+            string opcaoPj;
+            do
+            {//submenu layout
+                Console.WriteLine(@$"
+=============================================
+|      Escolha uma das opções abaixo        |
+|-------------------------------------------|
+|           1 - Cadastrar Pessoa Juridica   |
+|           2 - Listar Pessoa Juridica      |
+|                                           |
+|           0 - Voltar                      |
+=============================================
+");
+                opcaoPj = Console.ReadLine();
+
+                switch (opcaoPj)
+                {
+                    case "1":
+                        Console.Clear();
+                        Console.WriteLine();
+
+                        //Preenchumento dados 
+                        //Endereço pessoa JURÍDICA 01
+                        Endereco endPJ = new Endereco();
+                        Console.WriteLine($"Digite o endereço:");
+
+                        endPJ.Logradouro = Console.ReadLine();
+                        Console.WriteLine($"Digite o numero: ");
+                        endPJ.Numero = int.Parse(Console.ReadLine());
+
+                        Console.WriteLine($"Endereço comercial? s/n");
+                        if (Console.ReadLine() == "s")
+                        {
+                            endPJ.Comercial = true;
+                        }
+                        else
+                        {
+                            endPJ.Comercial = false;
+                        }
+
+                        //Pessoa juridica CADASTRO
+                        PessoaJuridica NovaPj = new PessoaJuridica();
+                        Console.WriteLine($"Digite o nome: ");
+                        NovaPj.Nome = Console.ReadLine();
+                        Console.WriteLine($"Digite o CNPJ");
+                        NovaPj.Cnpj = Console.ReadLine();
+                        Console.WriteLine($"Digite o nome Fantasia");
+                        NovaPj.Fantasia = Console.ReadLine();
+                        ;
+                        Console.WriteLine($"Digite a Razao Social");
+                        NovaPj.Razaosocial = Console.ReadLine();
+                        Console.WriteLine($"Qual o rendimento bruto?");
+                        NovaPj.Rendimento = float.Parse(Console.ReadLine()
+                        );
+                        NovaPj.Endereco = endPJ;
+
+                        //guardar o nome na lista
+                        ListaPj.Add(NovaPj);
+
+                        //criar o data base e inclui as variaveis que pedi no PESSOAJURIDICA com os dados inseridos
+                        Utils.ParadaNoConsole("pessoa Jurídica Cadastrada com sucesso");
+
+                        metodosPj.Inserir(NovaPj);
+
+                        //Console.Write(listsDeExibicaoPj);
+
+                        break;
+                    case "2":
+                        //EXIIBIÇÃO DAS PESSOAS JURIDICAS
+                        Console.Clear();
+                        Console.WriteLine($"------Listagem de Pessoas Fisicas-----");
+
+                        // foreach (var pessoa in ListaPj)
+                        // {
+                        //     Console.WriteLine();
+                        //     Console.WriteLine($"NOME: {pessoa.Nome}");
+                        //     Console.WriteLine($"CNPJ: {pessoa.Cnpj}");
+                        //     Console.WriteLine($"Nome Fantasia: {pessoa.Fantasia}");
+                        //     Console.WriteLine($"Razao Social: {pessoa.Razaosocial}");
+                        //     Console.WriteLine($"Rendimento: {pessoa.Rendimento}");
+                        //     Console.WriteLine($"Rendimento líquido: {metodosPj.PagarImposto(pessoa.Rendimento)}");
+                        //     Console.WriteLine($"Rua: {pessoa.Endereco.Logradouro}");
+                        //     Console.WriteLine($"Numero: {pessoa.Endereco.Numero}");
+                        //     Console.WriteLine($"Endereço comercial? {pessoa.Endereco.Comercial}");
+                        //     if (pessoa.Endereco.Comercial == true)
+                        //     {
+                        //         Console.WriteLine($"Endereço comercial? Sim");
+                        //     }
+                        //     else
+                        //     {
+                        //         Console.WriteLine($"Endereço comercial? Não");
+
+                        //     }
+                        // }
+
+                        //LISTAR AS PESSOAS NO DATABASE
+                        List<PessoaJuridica> listsDeExibicaoPj = metodosPj.LerArquivos();
+
+                        foreach (PessoaJuridica cadaItem in listsDeExibicaoPj)
+                        {
+                            Console.WriteLine(@$"
+Nome: {cadaItem.Nome}
+CNPJ: {cadaItem.Cnpj}
+Razão Social: {cadaItem.Razaosocial}
+");
+
+                            Utils.ParadaNoConsole("----------Fim da listagem----------");
+
+                        }
+
+                        break;
+                    case "0":
+                        Console.Clear();
+                        Utils.ParadaNoConsole("Voltar ao menu anterior");
+                        break;
+                    default:
+                        Console.Clear();
+                        Utils.ParadaNoConsole("Opção invalida");
+                        break;
+
+                }
+            } while (opcaoPj != "0");
 
 
-
-
-
-
-
-            //             Console.Clear();
-            //             Console.WriteLine($"********** PESSOA JURIDICA **********");
-            //             Console.WriteLine();
-
-            //             //Endereco da pessoa juridica 1
-            //             Endereco endPj = new Endereco();
-            //             endPj.Logradouro = "Rua Niteroi";
-            //             endPj.Numero = 180;
-            //             endPj.Comercial = true;
-            //             PessoaJuridica novaPj = new PessoaJuridica();
-
-            //             //Pessoa juridica CADASTRO
-            //             novaPj.Nome = "Paulo";
-            //             novaPj.Endereco = endPj;
-            //             novaPj.Rendimento = 10000;
-            //             novaPj.Cnpj = "62.236.353/0001-42";//com mascara
-            //             // novaPj.Cnpj = "62236353000142";//sem mascara
-            //             novaPj.Fantasia = "SENAI";
-            //             novaPj.Razaosocial = "Serviço Nacional de Aprendizagem Industrial";
-
-
-            //             //EXIBICAO PESSOA JURIDICA
-            //             Console.WriteLine($"Pessoa Jurídica 01");
-            //             //adicionar o @ pode fazer varias linhas dentrode um CWL apenas  
-            //             Console.WriteLine(@$"
-            // Razão Social: {novaPj.Razaosocial}
-            // Nome Fantasia: {novaPj.Fantasia}
-            // Representante: {novaPj.Nome}
-            // CNPJ: {novaPj.Cnpj}
-            // CNPJ Válido: {metodosPj.ValidarCnpj(novaPj.Cnpj)}
-            // Rendimento atual: {novaPj.Rendimento}
-            // Rendimento LIQUIDO: {metodosPj.PagarImposto(novaPj.Rendimento)}
-            // Endereço copleto: {novaPj.Endereco.Logradouro}, {novaPj.Endereco.Numero}, {novaPj.Endereco.Comercial}
-            // ");
-            //             Utils.ParadaNoConsole("Pessoa Juridica Cadastrada com sucesso!");
             break;
+
 
         case "0":
             Console.WriteLine($"Obrigado por usar o nosso sistema");

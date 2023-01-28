@@ -14,7 +14,7 @@ namespace CadastroPessoaSF12.Classes
         public string? Razaosocial { get; set; }
         public string? Fantasia { get; set; }
 
-
+        public string caminho { get; private set; } = "Database/PessoaJuridica.csv";
 
         //PESSOA FÍSICA regra de descontos
         //Para rendimentos até R$ 5.000,00 - desconto de 6%
@@ -61,6 +61,42 @@ namespace CadastroPessoaSF12.Classes
                 }
             }
             return false;
+        }
+
+        //criar a utilidade de inserir
+        public void Inserir(PessoaJuridica Pj)
+        {
+            Utils.VerificarPastaArquivo(caminho);
+
+            string[] PjValores = { $"{Pj.Nome},{Pj.Cnpj},{Pj.Razaosocial},{Pj.Fantasia}" };
+
+            File.AppendAllLines(caminho, PjValores);
+        }
+        //conseguir ler o arquivo com os nomes
+        public List<PessoaJuridica> LerArquivos()
+        {
+            List<PessoaJuridica> ListaPj = new List<PessoaJuridica>();
+
+            string[] linhas = File.ReadAllLines(caminho);
+            
+
+            //leitura das linhas usando loop
+            //nome, cnpj, razaosocial
+            //0   ,1    , 2
+            foreach (string CadaLinha in linhas )
+            {
+                string [] atributo = CadaLinha.Split(",");
+                PessoaJuridica novaPj = new PessoaJuridica();
+                novaPj.Nome = atributo [0];
+                novaPj.Cnpj = atributo [1];
+                novaPj.Razaosocial = atributo [2];
+
+                ListaPj.Add(novaPj);
+
+            }
+
+            return ListaPj;
+
         }
     }
 }

@@ -26,11 +26,35 @@ namespace CadastroPessoaSF12.Classes
 
         public static void ParadaNoConsole(string texto, ConsoleColor corFonte = ConsoleColor.White)
         {
-              Console.ForegroundColor = corFonte;
+            Console.ForegroundColor = corFonte;
             Console.WriteLine(texto, corFonte);
             Console.WriteLine($"Tecle <ENTER> para continuar");
             Console.ResetColor();
             Console.ReadLine();
         }
+
+        //caminho = "Database/PessoaJuridica.csv";
+        public static void VerificarPastaArquivo(string caminho)
+        {
+            string pasta = caminho.Split("/")[0];
+
+
+            //se a pasta não existe ele cria
+            if (!Directory.Exists(pasta))
+            {
+                Directory.CreateDirectory(pasta);
+            }
+            //se não existe o arquivo ele cria 
+            if (!File.Exists(caminho))
+            {
+                using (File.Create(caminho))
+                {
+
+                }
+            }
+        }
+
     }
+
+
 }
