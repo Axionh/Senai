@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chapter_API.Controllers
+
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class LivroController : ControllerBase
@@ -26,6 +28,19 @@ namespace Chapter_API.Controllers
             catch (Exception e) 
             {
                 throw new Exception(e.Message);
+            }
+        }
+        [HttpPost]
+        public IActionResult Listar()
+        {
+            try
+            {
+                _iLivroRepository.Cadastrar(Livro);
+                return StatusCode(201);
+            }
+            catch (Exception e)
+            {
+                throw;
             }
         }
     }

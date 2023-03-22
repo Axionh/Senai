@@ -22,5 +22,10 @@ namespace Chapter_API.Repositories
         {
             throw new NotImplementedException();
         }
+        public void Cadastrar(Livro livro) 
+        {
+            _chapterContext.Livros.Add(livro);
+            _chapterContext.SaveChanges();
+        }
     }
 }
